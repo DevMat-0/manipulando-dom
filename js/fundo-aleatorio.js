@@ -6,6 +6,12 @@ const date = new Date()
 const hora = date.getHours()
 
 
+
+
+
+
+
+
 // pegando outros elemento
 const minutos = date.getMinutes()
 const anoCompleto = date.getFullYear()
@@ -16,9 +22,13 @@ document.body.style.background = "linear-gradient(135deg, #FFAA65, #FFD180, #90C
 document.body.style.backgroundImage = "url(../assets/imagem-manha.jpg)"
 
 } else if (hora >= 12 && hora < 18){
-document.body.style.background = "linear-gradient(145deg, #FF8A65, #FFB74D, #64B5F6 )"
+document.body.style.background = "linear-gradient(145deg, #FF8A65, #FFB74D, #64B5F6)"
+
+document.body.style.backgroundImage = "url(../assets/imagem-tarde.jpg)"
 } else if (hora >= 18 && hora < 24){
-document.body.style.background = "linear-gradient(155deg, #000428, #211132, #004e92 )"
+document.body.style.background = "linear-gradient(155deg, #000428, #211132, #004e92)"
+
+document.body.style.backgroundImage = "url(../assets/imagem-noitee.jpg)"
 } else {
     document.body.style.background = "linear-gradient(155deg, #0b7c51, #3f0d74, #183f60)"
 }
