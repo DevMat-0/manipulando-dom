@@ -13,64 +13,123 @@
     <!-- Icons BootStrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
+    <!-- TailwindCSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <!-- Css globlal -->
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <a href="#conteudo" class="skip-link">Pular para o conteudo principal</a>
+< <body class="bg-cover bg-no-repeat bg-center min-h-dvh">
+    <a href="#conteudo" class="skip-link"> Pular para o conteúdo principal</a>
+
+    <!-- header principal -->
     <header>
-        <div class="container">
-            <div class="header"> 
+      <div class="w-full max-w-[1440px] h-full p-4 m-auto">
+        <div
+        class="flex justify-between items-center bg-black/70 backdrop-blur-sm rounded-4xl h-16 py-2 px-4 m-auto max-w-[40rem] relative z-9999 border border-zinc-200">
+          <h1><a href="/" class="text-zinc-200 font-medium">Task & Pokedex</a></h1>
 
-            <h1><a href="/">Logo</a></h1>
+          <button
+            type="button"
+            aria-label="Abrir Menu"
+            aria-expanded="false"
+            aria-controls="navegacao-primaria"
+            id="btn-menu"
+            class="h-10 w-10 text-3xl cursor-pointer text-zinc-200 md:hidden"
+          >
+            <i
+              class="bi bi-list flex items-center justify-center"
+              aria-hidden="true"
+            ></i>
+          </button>
 
-            <button type="button" aria-label="Abrir Menu" 
-            aria-expanded="false" aria-controls="navegacao-primaria" id = "btn-menu">
-            <i class="bi bi-list" aria-hidden="true"></i>
-            </button>
-
-            <nav id="navegacao-primaria" aria-label="Menu principal" class="nav-ativa">
-                <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Sobre</a></li>
-                    <li><a href="#">Serviços</a></li>
-                    <li><a href="#">Contato</a></li>
-                </ul>
-            </nav>
-
-            </div>
+          <nav
+            id="navegacao-primaria"
+            aria-label="Menu principal"
+            class="hidden md:block"
+          >
+            <ul class="flex flex-col gap-4 md:flex-row">
+              <li><a href="#" class="text-xl text-zinc-200">Ínicio</a></li>
+              <li><a href="#" class="text-xl text-zinc-200">Sobre</a></li>
+              <li><a href="#" class="text-xl text-zinc-200">Serviços</a></li>
+              <li><a href="#" class="text-xl text-zinc-200">Contato</a></li>
+            </ul>
+          </nav>
         </div>
-    </header> 
+      </div>
+    </header>
 
-    <main id="conteudo">
-        <section class="todo-section">
-            <div class="container">
+    <main id="conteudo" class="flex flex-col gap-8">
+      <!-- Seção de todo-list -->
+      <section class="todo-section">
+        <div class="container m-auto">
+          <article class="todo-card">
+            <header>
+              <h2>Lista de tarefas</h2>
+              <p>Adicione suas tarefas do dia</p>
+            </header>
 
-            <article class="todo-card">
-                <header>
-                    <h2>Lista de tarefas</h2>
-                    <p>Adcione suas tarefas do dia</p>
-                    </header>
+            <form class="todo-form" id="todo-form">
+              <label for="tarefa" class="sr-only">Nova Tarefa</label>
+              <input
+                type="text"
+                placeholder="Digite uma tarefa..."
+                id="tarefa"
+                autocomplete="off"
+                class="flex-1 rounded-2xl border-2 border-transparent bg-white text-zinc-800 outline-none transition focus:border-indigo-600 p-4"
+              />
 
-                    <form class="todo-form" id="todo-form">
-                        <label for="tarefa" class="sr-only">Nova Tarefa
-                        </label>
-                        <input type="text" placeholder="Digite uma tarefa" id="tarefa" autocomplete="off">
+              <button
+                type="submit"
+                class="bg-zinc-300 px-4 outline-none font-medium flex-1 rounded-2xl border-2 border-transparent focus:border-indigo-600 text-zinc-950"
+              >
+                Adicionar
+              </button>
+            </form>
 
-                        <button type="submit">Adicionar</button>
-                    </form>
+            <ul class="todo-list" id="todo-list"></ul>
+          </article>
+        </div>
+      </section>
 
-                <ul class="todo-list" id="todo-list"></ul>
-            </article>
+      <!-- Seção de busca de pokémon -->
+      <section class="pokemon-section">
+        <div class="container m-auto">
+          <article class="pokemon-card">
+            <header>
+              <h2>Pokédex</h2>
+              <p>Pesquise qualquer Pokémon</p>
+            </header>
 
-            </div>
-        </section>
+            <form id="pokemon-form" class="pokemon-form">
+              <label for="pokemon-input" class="sr-only">
+                Digite o nome do pokémon
+              </label>
+
+              <input
+                type="text"
+                id="pokemon-input"
+                placeholder="Ex: Pikachu"
+                autocomplete="off"
+                class="flex-1 rounded-2xl border-2 border-transparent bg-white text-zinc-800 outline-none transition focus:border-indigo-600 p-4"
+              />
+
+              <button
+                type="submit"
+                class="bg-zinc-300 px-4 outline-none font-medium flex-1 rounded-2xl border-2 border-transparent focus:border-indigo-600 text-zinc-950"
+              >
+                Buscar pokémon
+              </button>
+            </form>
+          </article>
+        </div>
+      </section>
     </main>
 
     <script src="./js/menu-hamburguer.js"></script>
     <script src="./js/fundo-aleatorio.js"></script>
     <script src="./js/todo-list.js"></script>
-    </body>
-
+    <script src="./js/pokemon-api.js"></script>
+  </body>
 </html>

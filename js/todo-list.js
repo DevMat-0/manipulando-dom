@@ -1,109 +1,108 @@
-const form = document.getElementById("todo-form")
-const input = document.getElementById("tarefa")
-const lista = document.getElementById("todo-list")
+// primeiro, pegamos os elementos
+const form = document.getElementById("todo-form");
+const input = document.getElementById("tarefa");
+const lista = document.getElementById("todo-list");
 
-form.addEventListener("submit", adicionarTarefa)
+// sempre que o formulário for enviado, chamaremos a função adicionarTarefa
+form.addEventListener("submit", adicionarTarefa);
 
-// o parametro sempre é montado pelo 
-// navegador. Ele é um objeto contendo inform acoes do evento/acao do usuario
+// o paramentro event sempre é montado pelo navegador. Ele é um objeto contendo informações do evento/ação do usuário
 function adicionarTarefa(event) {
+  // preventDefault - serve para impedir que um comportamento padrão de algum elemento ocorra
+  // no caso do formulário, ele sempre tenta recarregar a página após o envio dos dados
+  // com o preventDefault, isso não irá acontecer novamente
+  event.preventDefault();
 
-    // serve para impedir que um 
-    // compartamento padrao de algum elemento ocorra 
-    // no casodo formulario, ele sempre tenta
-    // recarregar a pagina apos o envio dis dados
-    // com o prevent, isso nao ira acontecer novamente
-    event.preventDefault()
+  // Pegando o texto digitado e removendo espaços em branco no começo e no final
+  const textoTarefa = input.value.trim();
 
-    // Pegando o texto digitando e removendo espacos
-    // em branco no comeco e no final.
-    const textoTarefa = input.value.trim()
+  // Não permite tarefas vazias
+  if (textoTarefa === "") {
+    alert("Digite uma tarefa");
+    input.focus();
+    return; // serve para parar a execução do código, não permite que execute o resto do bloco de código caso essa validação não seja cumprida
+  }
 
-    // Não permite tarefas vazias 
-    if(textoTarefa === ""){ 
-        alert("Digit uma tarefa")
-        input.focus()
-         return // serve para parar a execução do codigo
-        //  nao permite que execute o resto do bloco de codigo caso essa validacao nao seja cumprida
-}
+  // criando um li
+  const itemLista = document.createElement("li");
+  itemLista.classList.add("todo-item");
 
-// criando um li
-const itemLista = document.createElement("li")
-// itemLista.textContent = textoTarefa
-itemLista.classList.add("todo-item")
+  // criando um span para o texto
+  const texto = document.createElement("span");
+  texto.textContent = textoTarefa;
 
-// criando um span para o texto
-const texto = document.createElement("span")
-texto.textContent = textoTarefa
+  // criando o botão de concluir
+  const btnConcluir = document.createElement("button");
+  btnConcluir.setAttribute("aria-label", "Concluir tarefa");
+  btnConcluir.classList.add("concluir");
 
-// criando o botao de concluir
-const btnConcluir = document.createElement("button")
+  // criando o ícone de concluir
+  const iconConcluir = document.createElement("i");
+  iconConcluir.classList.add("bi", "bi-check-lg");
 
-btnConcluir.setAttribute("aria-label", "Concluir tarefa")
-btnConcluir.classList.add("concluir")
+  btnConcluir.append(iconConcluir);
 
-// criando o icone de concluir 
-const iconConcluir = document.createElement("i")
-iconConcluir.classList.add("bi", "bi-check-lg")
+  // criando o botão de remover
+  const btnRemover = document.createElement("button");
+  btnRemover.setAttribute("aria-label", "Remover tarefa");
+  btnRemover.classList.add("remover");
 
-btnConcluir.append(iconConcluir)
+  // criando o ícone de remover
+  const iconRemover = document.createElement("i");
+  iconRemover.classList.add("bi", "bi-trash3");
 
-// criando o botao de remover
-const btnRemover = document.createElement("button")
-btnRemover.setAttribute("aria-label", "Remover tarefa")
+  btnRemover.append(iconRemover);
 
-// criando o icone de remover
-const iconRemover = document.createElement("i")
-iconRemover.classList.add("bi" , "bi-trash3")
-btnRemover.classList.add("remover")
+  // container para os botões
+  const acoes = document.createElement("div");
+  acoes.classList.add("acoes");
 
-btnRemover.append(iconRemover)
+  // adicionando os botões na div
+  acoes.append(btnConcluir);
+  acoes.append(btnRemover);
 
-// container para os botoes
-const acoes = document.createElement("div")
-acoes.classList.add("acoes")
+  // monta o item da lista
+  itemLista.append(texto);
+  itemLista.append(acoes);
 
+  // adicionando o item da lista montado dentro da lista
+  lista.append(itemLista);
 
-//  adicionando os botoes na div
-acoes.append(btnConcluir)
-acoes.append(btnRemover)
+  // limpando o campo do input
+  input.value = "";
 
+  // voltando o foco para o input
+  input.focus();
 
-// monta o item da lista
-itemLista.append(texto)
-itemLista.append(acoes)
+  // criando o evento dos botões
+  // removendo tarefa
+  btnRemover.addEventListener("click", function () {
+    itemLista.remove();
+  });
 
-//  adicionando o item da lista montando dentro da lista
-lista.append(itemLista)
+  //concluindo a tarefa
+  btnConcluir.addEventListener("click", () => {
+    texto.classList.toggle("tarefa-concluida");
 
-// limpando o campo do input
-input.value = ""
+    const tarefaConcluida = texto.classList.contains("tarefa-concluida");
+    // se na lista de classes do elemento texto contém a classe.tarefa-concluida
+    // então, ele executará o bloco de código, caso contrário, não.
+    if (tarefaConcluida) {
+      iconConcluir.classList.remove("bi-check-lg");
+      iconConcluir.classList.add("bi-arrow-clockwise");
 
-// voltando o foco para o input
-input.focus()
+      btnConcluir.setAttribute("aria-label", "Desmarcar tarefa");
 
-// criando o evento dos botoes
-// removendo tarefa
-btnRemover.addEventListener("click", function(){
-itemLista.remove()
-})
+      // move o item da lista para o final da lista
+      lista.append(itemLista);
+    } else {
+      iconConcluir.classList.remove("bi-arrow-clockwise");
+      iconConcluir.classList.add("bi-check-lg");
 
-btnConcluir.addEventListener("click", ()=>{
-texto.classList.toggle("tarefa-concluida")
+      btnConcluir.setAttribute("aria-label", "Concluir tarefa");
 
-// se na lista de classe do elemento texto contem a classe,tarefa-concluida
-// entao, ele execuitara o bloco de codigo, caso contrario, nao.
-if(texto.classList.contains("tarefa-concluida")){
-    iconConcluir.classList.remove("bi-check-lg")
-    iconConcluir.classList.add("bi-arrow-clockwise")
-    
-    btnConcluir.setAttribute("aria-label", "Desmarcar tarefa")
-} else {
-    iconConcluir.classList.remove("bi-arrow-clockwise")
-    iconConcluir.classList.add("bi-check-lg")
-
-    btnConcluir.setAttribute("aria-label", "Concluir tarefa")
-}
-})
-
+      // move a tarefa para o inicio da lista
+      lista.prepend(itemLista);
+    }
+  });
 }

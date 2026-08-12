@@ -10,8 +10,6 @@ const btnMenu = document.getElementById("btn-menu")
 const navPrincipal = document.getElementById ("navegacao-primaria")
 const icone = btnMenu.querySelector("i")
 
-console.log(icone)
-
 
 // addEventListener - serve para observar ações/eventos em elementos dos
 // e executar uma função quando esse evento acontece
@@ -35,10 +33,9 @@ function abrirMenu(){
     icone.classList.remove("bi-list")
     icone.classList.add("bi-x")
    }else{
-    icone.classList.add("bi-list")
     icone.classList.remove("bi-x")
+    icone.classList.add("bi-list")
    }
-
 
 }
 
