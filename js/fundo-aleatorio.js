@@ -10,8 +10,6 @@ const hora = date.getHours()
 
 
 
-
-
 // pegando outros elemento
 const minutos = date.getMinutes()
 const anoCompleto = date.getFullYear()
